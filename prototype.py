@@ -4,7 +4,6 @@ pygame.init()
 win = pygame.display.set_mode((1200,1200))
 pygame.display.set_caption("First Game")
 
-secundario=Tk()
 
 run = True
 
@@ -15,6 +14,7 @@ y = 100
 width = 60
 height = 40
 vel = 15
+#probando sourcetree denuevo
 
 #probando sourcetree
 while run:
