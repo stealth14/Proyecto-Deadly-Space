@@ -1,7 +1,7 @@
 import pygame
 pygame.init()
 
-win = pygame.display.set_mode((800,800))
+win = pygame.display.set_mode((1200,1200))
 pygame.display.set_caption("First Game")
 
 secundario=Tk()
