@@ -9,8 +9,8 @@ run = True
 
 
 #player 1
-x = 100
-y = 100
+x = 500
+y = 500
 width = 60
 height = 40
 vel = 15
@@ -21,9 +21,14 @@ velb=10
 
 disparo=False
 
-#probando sourcetree denuevo
+#target coordinates
+
+xPos = 50
+yPos = 100
+
+xVel = 10
+yVel = -5
     
-#probando sourcetree
 while run:
     #pausa el programa por una cantidad de tiempo 
     pygame.time.delay(1)
@@ -36,30 +41,50 @@ while run:
     
     if keys[pygame.K_a]:
         x -= vel
-        xb=x
+        
     if keys[pygame.K_d]:
         x += vel
-        xb=x
+        
     if keys[pygame.K_w]:
         y -= vel
-        yb=y
-    if keys[pygame.K_s]:
+        
+    if keys[pygame.K_s]:    
         y += vel
-        yb=y
+        
     if keys[pygame.K_SPACE]:
         disparo=True
-    
+        yb=y
+        xb=x
 
     win.fill((0,0,0))
 
-    
-    
 
+    #target incremento
+
+    xPos += xVel
+    #yPos += yVel
+ 
+    if xPos > 1150 or xPos <10:
+        xVel *= -1
+    
+    #if yPos >290 or yPos <10:
+        #yVel *= -1
+
+    #target
+        
+    pygame.draw.polygon(win, pygame.Color('GREEN') , [ (xPos,yPos-50)  , (xPos+50,yPos) , (xPos+50,yPos-50) ] ) 
+
+
+    #jugador1
     pygame.draw.rect(win, (255,0,0), (x, y, width, height))
 
+
+    #disparo
     if disparo and yb>0:
         yb-=velb
-        pygame.draw.circle(win, (255,255,255 ),(xb,yb),10)
-        
+        pygame.draw.circle(win, (255,255,255 ),(xb+30,yb),10)
+      
+    
+
     pygame.display.update() 
 pygame.quit()
