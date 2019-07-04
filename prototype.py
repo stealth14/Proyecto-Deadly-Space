@@ -6,8 +6,11 @@ pygame.display.set_caption("First Game")
 
 
 run = True
+#sonidos
+laser=pygame.mixer.Sound('laser.wav')
+fondo=pygame.mixer.music.load('Song Of Storms Dubstep Remix - Ephixa.mp3')
 
-
+pygame.mixer.music.play(-1)
 #player 1
 x = 500
 y = 500
@@ -17,7 +20,7 @@ vel = 15
 
 #bala
 
-velb=10
+velb=20
 
 disparo=False
 
@@ -52,6 +55,7 @@ while run:
         y += vel
         
     if keys[pygame.K_SPACE]:
+        laser.play()
         disparo=True
         yb=y
         xb=x
