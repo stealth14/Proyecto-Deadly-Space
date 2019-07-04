@@ -95,7 +95,7 @@ while run:
         win.blit(bala,(xb+30,yb))
         offset=(xb-xPos,yb-yPos)
         colision = nave_mask.overlap(bala_mask,offset)
-        print(offset)
+        #print(offset)
     
         if colision:
             print('La bala le dio')
