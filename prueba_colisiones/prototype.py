@@ -1,7 +1,7 @@
 import pygame
 pygame.init()
 
-win = pygame.display.set_mode((1200,1200))
+win = pygame.display.set_mode((800,600))
 pygame.display.set_caption("First Game")
 
 
@@ -9,15 +9,15 @@ run = True
 
 
 #player 1
-x = 500
+x = 400
 y = 500
-width = 60
-height = 40
-vel = 15
+width = 50
+height = 50
+vel = 1
 
 #bala
 
-velb=10
+velb=1
 
 disparo=False
 
@@ -26,8 +26,8 @@ disparo=False
 xPos = 50
 yPos = 100
 
-xVel = 5
-yVel = -2.5
+xVel = 1
+yVel = -1.5
 
 bala = pygame.image.load('mega_man.png').convert_alpha()
 bala_mask = pygame.mask.from_surface(bala)
@@ -72,7 +72,7 @@ while run:
     xPos += xVel
     #yPos += yVel
  
-    if xPos > 1150 or xPos <10:
+    if xPos > 800 or xPos <10:
         xVel *= -1
     
     #if yPos >290 or yPos <10:
