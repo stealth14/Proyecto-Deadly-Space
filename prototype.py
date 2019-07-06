@@ -24,7 +24,7 @@ velb=20
 
 disparo=False
 
-#target coordinates
+#target coordinates1
 
 xPos = 50
 yPos = 100
