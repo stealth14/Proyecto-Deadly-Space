@@ -1,7 +1,7 @@
 import pygame
 pygame.init()
 
-win = pygame.display.set_mode((800,600))
+win = pygame.display.set_mode((800,800))
 pygame.display.set_caption("First Game")
 
 
@@ -13,11 +13,11 @@ x = 400
 y = 500
 width = 50
 height = 50
-vel = 1
+vel = 15
 
 #bala
 
-velb=1
+velb=10
 
 disparo=False
 
