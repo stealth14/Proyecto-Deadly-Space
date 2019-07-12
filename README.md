@@ -2,6 +2,6 @@
 Proyecto PyGame
 
 Ronny Cajas
-Christian Guamba
+Cristian Guamba
 Xavier Calle
 Anderson 
