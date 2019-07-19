@@ -71,7 +71,7 @@ while run:
         yb=y
         xb=x
 
-    win.fill((0,0,0))
+    #win.fill((0,0,0))
 
 
     #target incremento
