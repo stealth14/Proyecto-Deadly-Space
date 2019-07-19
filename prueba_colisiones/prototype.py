@@ -126,7 +126,7 @@ while run:
         #print(offset)
     
         if colision:
-            print('La bala le dio')
+            #print('La bala le dio')
             puntos=puntos-1
 
     Puntaje(puntos)     
