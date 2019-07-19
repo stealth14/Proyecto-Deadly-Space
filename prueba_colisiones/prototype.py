@@ -1,15 +1,14 @@
 import pygame
+from pygame.locals import *
+import sys
 pygame.init()
-
 win = pygame.display.set_mode((800,800))
 pygame.display.set_caption("First Game")
-
-#sonidos
-laser=pygame.mixer.Sound('laser.wav')
-fondo=pygame.mixer.music.load('Song Of Storms Dubstep Remix - Ephixa.mp3')
-pygame.mixer.music.play(-1)
+pygame.font.init()
 
 run = True
+
+puntos=50
 
 
 #player 1
@@ -41,6 +40,31 @@ nave = pygame.image.load('nave.png').convert_alpha()
 nave_mask = pygame.mask.from_surface(nave)
 nave_rect = nave.get_rect()
 
+myfont = pygame.font.SysFont(None,50) #Se define el font
+
+#Funcion para puntaje 
+def Puntaje(marcador):
+    if marcador<=0:
+        puntaje=0
+        vidaEnemigo = myfont.render('ENEMY DEAD',True,(255,255,255))
+        nave = pygame.image.load('Fondo_Negro.png').convert_alpha()
+        puntaje=puntaje+1
+        puntajes = myfont.render('PUNTOS '+str(puntaje),True,(255,255,0))
+        win.blit(nave,(xPos+30,yPos-50))
+        win.blit(puntajes,(400,700))
+
+    else:
+        vidaEnemigo = myfont.render('ENEMI LIVE ',True,(255,255,0))
+    win.blit(vidaEnemigo,(10,10))
+
+#Funcion del tiempo de juego
+def Tiempo():
+    Time=int(pygame.time.get_ticks()/1000) #Obtenemos 
+    mensaje = myfont.render('Tiempo: '+str(Time),True,(0,255,255))
+    win.blit(mensaje,(480,10))
+
+
+
 while run:
     #pausa el programa por una cantidad de tiempo 
     pygame.time.delay(1)
@@ -64,14 +88,11 @@ while run:
         y += vel
         
     if keys[pygame.K_SPACE]:
-        
-        laser.play()
-        
         disparo=True
         yb=y
         xb=x
 
-    #win.fill((0,0,0))
+    win.fill((0,0,0))
 
 
     #target incremento
@@ -106,6 +127,11 @@ while run:
     
         if colision:
             print('La bala le dio')
+            puntos=puntos-1
 
+    Puntaje(puntos)     
+    Tiempo()   
     pygame.display.update() 
+    pygame.display.flip()
+
 pygame.quit()
