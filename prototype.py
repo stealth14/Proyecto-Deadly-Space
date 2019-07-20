@@ -8,10 +8,12 @@ tiempo_inicial=datetime.now()
 #Inicializacion Joystick
 
 # Evita que el programa se detega sij no hay un mando conectado
+conectado = False
 try:
     j = pygame.joystick.Joystick(0) # Crear instancia del Joystick
     j.init() # Inicia el Joystick para usarlo
     print ("Se detecto un mando: {0}".format(j.get_name()))
+    conectado = True
 except pygame.error:
     print ("No hay un mando conectado.")
 
@@ -50,7 +52,8 @@ yj2 = 500
 
 velb=20
 
-disparo=False
+disparo1=False
+disparo2=False
 
 #target coordinates
 
@@ -63,6 +66,10 @@ yVel = -1.5
 bala = pygame.image.load('mega_man.png').convert_alpha()
 bala_mask = pygame.mask.from_surface(bala)
 bala_rect = bala.get_rect()
+
+bala2 = pygame.image.load('mega_man.png').convert_alpha()
+bala_mask2 = pygame.mask.from_surface(bala2)
+bala_rect2 = bala2.get_rect()
 
 nave = pygame.image.load('nave.png').convert_alpha()
 nave_mask = pygame.mask.from_surface(nave)
@@ -89,9 +96,9 @@ while run:
         yj1 += vel
     if keys[pygame.K_SPACE]:
         laser.play()
-        disparo=True
-        yb=yj1
-        xb=xj1
+        disparo1=True
+        yb1=yj1
+        xb1=xj1-32
 
 
 #________________MOVIMIENTO JUGADOR 2________________#
@@ -115,22 +122,38 @@ while run:
             yj2 += vel
         if event.button == 3:
             yj2 -= vel'''
+    if conectado:
+	    if event.type == pygame.JOYHATMOTION:  # Joystick
+	        if j.get_hat(0) == (1,0):
+	            xj2 += vel            
+	        if j.get_hat(0) == (-1,0):
+	            xj2 -= vel
+	        if j.get_hat(0) == (0,-1):
+	            yj2 += vel
+	        if j.get_hat(0) == (0,1):
+	            yj2 -= vel
+	    if event.type == pygame.JOYBUTTONDOWN:
+	        if event.button == 1:
+	            laser.play()
+	            disparo2=True
+	            yb2=yj2
+	            xb2=xj2
+    else:
 
-    if event.type == pygame.JOYHATMOTION:  # Joystick
-        if j.get_hat(0) == (1,0):
-            xj2 += vel            
-        if j.get_hat(0) == (-1,0):
-            xj2 -= vel
-        if j.get_hat(0) == (0,-1):
-            yj2 += vel
-        if j.get_hat(0) == (0,1):
-            yj2 -= vel
-    if event.type == pygame.JOYBUTTONDOWN:
-        if event.button == 1:
-            laser.play()
-            disparo=True
-            yb=yj1
-            xb=xj1
+	    if keys[pygame.K_j]:
+	        xj2 -= vel
+	    if keys[pygame.K_l]:
+	        xj2 += vel
+	    if keys[pygame.K_i]:
+	        yj2 -= vel
+	    if keys[pygame.K_k]:
+	        yj2 += vel
+	    if keys[pygame.K_p]:
+	        laser.play()
+	        disparo2=True
+	        yb2=yj2
+	        xb2=xj2-32
+
 
     win.fill([255, 255, 255])
     
@@ -162,16 +185,27 @@ while run:
     #Dibujado jugador2
     pygame.draw.rect(win, (0,0,255), (xj2, yj2, width, height))
 
-    #disparo
-    if disparo and yb>0:
-        yb-=velb        
+    #disparo1
+    if disparo1 and yb1>0:
+        yb1-=velb        
         #bala = pygame.draw.circle(win, (255,255,255 ),(xb+30,yb),10)
-        win.blit(bala,(xb+30,yb))
-        offset=(xb-xPos,yb-yPos)
+        win.blit(bala,(xb1+30,yb1))
+        offset=(xb1-xPos,yb1-yPos)
         colision = nave_mask.overlap(bala_mask,offset)
-        #print(offset)
+        print(offset)
     
         if colision:
+            print('La bala le dio')
+
+    if disparo2 and yb2>0:
+        yb2-=velb        
+        #bala = pygame.draw.circle(win, (255,255,255 ),(xb+30,yb),10)
+        win.blit(bala2,(xb2+30,yb2))
+        offset2=(xb2-xPos,yb2-yPos)
+        colision2 = nave_mask.overlap(bala_mask2,offset2)
+        print(offset2)
+    
+        if colision2:
             print('La bala le dio')
 
     pygame.display.update() 
