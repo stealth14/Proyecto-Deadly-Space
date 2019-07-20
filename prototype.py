@@ -103,7 +103,7 @@ while run:
 
 #________________MOVIMIENTO JUGADOR 2________________#
 
-    '''if event.type == pygame.JOYAXISMOTION:  # Joystick
+    if event.type == pygame.JOYAXISMOTION:  # Joystick
         if j.get_axis(0) >= 0.5:
             xj2 += vel            
         if j.get_axis(0) <= -1:
@@ -111,7 +111,7 @@ while run:
         if j.get_axis(1) >= 0.5:
             yj2 += vel
         if j.get_axis(1) <= -1:
-            yj2 -= vel'''
+            yj2 -= vel
 
     '''if event.type == pygame.JOYBUTTONDOWN:  # Joystick
         if event.button == 0:
@@ -137,7 +137,7 @@ while run:
 	            laser.play()
 	            disparo2=True
 	            yb2=yj2
-	            xb2=xj2
+	            xb2=xj2-32
     else:
 
 	    if keys[pygame.K_j]:
@@ -192,10 +192,10 @@ while run:
         win.blit(bala,(xb1+30,yb1))
         offset=(xb1-xPos,yb1-yPos)
         colision = nave_mask.overlap(bala_mask,offset)
-        print(offset)
+        #print(offset)
     
         if colision:
-            print('La bala le dio')
+            print('La bala del jugador 1 le dio')
 
     if disparo2 and yb2>0:
         yb2-=velb        
@@ -203,10 +203,10 @@ while run:
         win.blit(bala2,(xb2+30,yb2))
         offset2=(xb2-xPos,yb2-yPos)
         colision2 = nave_mask.overlap(bala_mask2,offset2)
-        print(offset2)
+        #print(offset2)
     
         if colision2:
-            print('La bala le dio')
+            print('La bala del jugador 2 le dio')
 
     pygame.display.update() 
 pygame.quit()
