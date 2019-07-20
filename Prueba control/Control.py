@@ -37,8 +37,8 @@ def main():
 
             #Comprobacion para el Mando
 
-            elif event.type ==pygame.JOYAXISMOTION:
-                print('Mando --> ', mandos[event.joy].get_name(), 'axis -->', event.axis, 'Movimineto')
+            #elif event.type ==pygame.JOYAXISMOTION:
+                #print('Mando --> ', mandos[event.joy].get_name(), 'axis -->', event.axis, 'Movimineto')
             elif event.type ==pygame.JOYBUTTONDOWN:
                 print('Mando --> ', mandos[event.joy].get_name(), 'boton -->', event.button, 'presionado')
                 if event.button == 0:

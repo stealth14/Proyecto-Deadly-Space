@@ -5,6 +5,16 @@ pygame.init()
 #captura del tiempo inicial
 tiempo_inicial=datetime.now()
 
+#Inicializacion Joystick
+
+# Evita que el programa se detega sij no hay un mando conectado
+try:
+    j = pygame.joystick.Joystick(0) # Crear instancia del Joystick
+    j.init() # Inicia el Joystick para usarlo
+    print ("Se detecto un mando: {0}".format(j.get_name()))
+except pygame.error:
+    print ("No hay un mando conectado.")
+
 win = pygame.display.set_mode((800,800))
 pygame.display.set_caption("First Game")
 
@@ -22,12 +32,19 @@ class Background(pygame.sprite.Sprite):
         self.image = pygame.image.load(image_file)
         self.rect = self.image.get_rect()
         self.rect.left, self.rect.top = location
+
+
+width = 50 #para creacion de rectangulo
+height = 50 #para creacion de rectangulo
+vel = 25 #para movimiento 
+
 #player 1
-x = 400
-y = 500
-width = 50
-height = 50
-vel = 25
+xj1 = 200
+yj1 = 500
+
+#player 2
+xj2 = 600
+yj2 = 500
 
 #bala
 
@@ -59,33 +76,66 @@ while run:
         if event.type == pygame.QUIT:
             run = False
 
+#________________MOVIMIENTO JUGADOR 1________________#
     keys = pygame.key.get_pressed()
-    
-    if keys[pygame.K_a]:
-        x -= vel
-        
-    if keys[pygame.K_d]:
-        x += vel
-        
-    if keys[pygame.K_w]:
-        y -= vel
-        
-    if keys[pygame.K_s]:    
-        y += vel
-        
-    if keys[pygame.K_SPACE]:
-        
-        laser.play()
-        
-        disparo=True
-        yb=y
-        xb=x
 
-    #repintado del fondi
-    BackGround = Background('fondo.jpg', [0,0])
+    if keys[pygame.K_a]:
+        xj1 -= vel
+    if keys[pygame.K_d]:
+        xj1 += vel
+    if keys[pygame.K_w]:
+        yj1 -= vel
+    if keys[pygame.K_s]:
+        yj1 += vel
+    if keys[pygame.K_SPACE]:
+        laser.play()
+        disparo=True
+        yb=yj1
+        xb=xj1
+
+
+#________________MOVIMIENTO JUGADOR 2________________#
+
+    '''if event.type == pygame.JOYAXISMOTION:  # Joystick
+        if j.get_axis(0) >= 0.5:
+            xj2 += vel            
+        if j.get_axis(0) <= -1:
+            xj2 -= vel
+        if j.get_axis(1) >= 0.5:
+            yj2 += vel
+        if j.get_axis(1) <= -1:
+            yj2 -= vel'''
+
+    '''if event.type == pygame.JOYBUTTONDOWN:  # Joystick
+        if event.button == 0:
+            xj2 += vel            
+        if event.button == 1:
+            xj2 -= vel
+        if event.button == 2:
+            yj2 += vel
+        if event.button == 3:
+            yj2 -= vel'''
+
+    if event.type == pygame.JOYHATMOTION:  # Joystick
+        if j.get_hat(0) == (1,0):
+            xj2 += vel            
+        if j.get_hat(0) == (-1,0):
+            xj2 -= vel
+        if j.get_hat(0) == (0,-1):
+            yj2 += vel
+        if j.get_hat(0) == (0,1):
+            yj2 -= vel
+    if event.type == pygame.JOYBUTTONDOWN:
+        if event.button == 1:
+            laser.play()
+            disparo=True
+            yb=yj1
+            xb=xj1
 
     win.fill([255, 255, 255])
-
+    
+    #repintado del fondo
+    BackGround = Background('fondo.jpg', [0,0])
     win.blit(BackGround.image, BackGround.rect)
 
     
@@ -107,9 +157,10 @@ while run:
     win.blit(nave,(xPos+30,yPos-50))
 
 
-    #jugador1
-    pygame.draw.rect(win, (255,0,0), (x, y, width, height))
-
+    #Dibujado jugador1
+    pygame.draw.rect(win, (255,0,0), (xj1, yj1, width, height))
+    #Dibujado jugador2
+    pygame.draw.rect(win, (0,0,255), (xj2, yj2, width, height))
 
     #disparo
     if disparo and yb>0:
