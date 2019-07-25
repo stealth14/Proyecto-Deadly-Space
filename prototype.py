@@ -86,6 +86,7 @@ myfont = pygame.font.SysFont(None,50) #Se define el font
 #Funcion para puntaje 
 def Puntaje(life):
     global cont
+    global enemilive
     cont=0
     if life<=0:
         #puntaje=0
@@ -96,6 +97,7 @@ def Puntaje(life):
         #win.blit(nave,(xPos+30,yPos-50))
         #win.blit(puntajes,(800,600))
         cont=cont+1
+        enemilive=False
         Puntos(cont)
         
     else:
@@ -217,8 +219,19 @@ while run:
     #target
         
     #nave1 =  pygame.draw.circle(win, pygame.Color('GREEN') ,(xPos+30,yPos-50),60 ) 
+        win.blit(nave,(xPos+30,yPos-50))
+        vid = myfont.render('ANOTHER',True,(255,255,0))
+        win.blit(vid,(10,10))
+        #enemilive=True
+        #puntos=puntos+50
     if puntos>=0:
         win.blit(nave,(xPos+30,yPos-50))
+    else:
+        vidaEnemigo = myfont.render('ANOTHER',True,(255,255,0))
+        win.blit(vidaEnemigo,(10,10))
+        puntos=puntos+50
+        
+
 
 
     #Dibujado jugador1
