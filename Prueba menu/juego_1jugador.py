@@ -8,6 +8,11 @@ win = pygame.display.set_mode((1000,700))
 pygame.display.set_caption("First Game")
 pygame.font.init()
 
+
+pygame.mixer.music.set_volume(0.9) #Configuracion del Volumen
+pygame.mixer.music.load("fondo.mp3") #Carga de mp3 sonido de fondo
+pygame.mixer.music.play(0, 0.0) #Bucle infinito de reproduccion del sonido, se detiene al momento de un evento
+
 run = True
 
 puntos=50
@@ -126,9 +131,12 @@ while run:
         offset=(xb-xPos,yb-yPos)
         colision = nave_mask.overlap(bala_mask,offset)
         #print(offset)
-    
+        
         if colision:
             puntos=puntos-1
+            pygame.mixer.music.set_volume(0.9) 
+            pygame.mixer.music.load("evento.mp3") 
+            pygame.mixer.music.play() 
 
     Puntaje(puntos)     
     Tiempo()   
