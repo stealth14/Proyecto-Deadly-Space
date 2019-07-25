@@ -1,0 +1,26 @@
+Cronograma de actividades.
+
+viernes 28 Junio
+
+Pruebas en el mainloop. 
+Interaccion con el teclado.
+
+viernes 5 Julio 2019
+
+Sonido en archivos de prueba.
+Primeras pruebas con animaciones, figuras y sprites.
+Uso de mascaras en colisiones.
+
+viernes 12 Julio 2019 
+
+Sonido en el archivo principal.
+Primeras pruebas con el joystick. 
+Puntaje de eventos y puntaje total. 
+Reloj tiempo de juego.
+
+viernes 19 Julio 2019
+
+Funcion del segundo jugador. 
+Ejecutables. 
+Registro de puntaje en archivo plano. 
+Documentacion de Instalacion.

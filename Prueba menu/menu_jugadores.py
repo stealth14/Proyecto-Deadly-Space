@@ -52,6 +52,7 @@ def main_menu():
                         os.system("juego_1jugador.py")
                         quit()
                     if selected=="2":
+                        os.system("juego_2jugador.py")
                         pygame.quit()
                         quit()
 
