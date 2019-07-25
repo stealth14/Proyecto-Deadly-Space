@@ -10,6 +10,8 @@ pygame.font.init()
 
 
  #Configuracion del Volumen
+
+laser=pygame.mixer.Sound('laser.wav')
 acierta = pygame.mixer.Sound('evento.wav')
 fondo = pygame.mixer.music.load("fondo.mp3") #Carga de mp3 sonido de fondo
 pygame.mixer.music.play(-1) #Bucle infinito de reproduccion del sonido, se detiene al momento de un evento

@@ -1,11 +1,15 @@
 import pygame
 from datetime import datetime
+import sys
+import os
 
 pygame.init()
+os.environ['SDL_VIDEO_CENTERED'] = '1'
+
 #captura del tiempo inicial
 tiempo_inicial=datetime.now()
 
-#Inicializacion Joystick
+#----------------Inicializacion Joystick
 
 # Evita que el programa se detega si no hay un mando conectado
 conectado = False
@@ -17,16 +21,18 @@ try:
 except pygame.error:
     print ("No hay un mando conectado.")
 
-win = pygame.display.set_mode((800,800))
+win = pygame.display.set_mode((1000,700))
 pygame.display.set_caption("First Game")
 
-#sonidos
+#----------------------sonidos
 laser=pygame.mixer.Sound('laser.wav')
+acierta = pygame.mixer.Sound('evento.wav')
 fondo=pygame.mixer.music.load('Song Of Storms Dubstep Remix - Ephixa.mp3')
 pygame.mixer.music.play(-1)
 
 run = True
 
+puntos=50
 
 class Background(pygame.sprite.Sprite):
     def __init__(self, image_file, location):
@@ -75,9 +81,33 @@ nave = pygame.image.load('nave.png').convert_alpha()
 nave_mask = pygame.mask.from_surface(nave)
 nave_rect = nave.get_rect()
 
+myfont = pygame.font.SysFont(None,50) #Se define el font
+
+#Funcion para puntaje 
+def Puntaje(marcador):
+    if marcador<=0:
+        puntaje=0
+        vidaEnemigo = myfont.render('ENEMY DEAD',True,(255,255,255))
+        #nave = pygame.image.load('Fondo_Negro.png').convert_alpha()
+        puntaje=puntaje+1
+        puntajes = myfont.render('PUNTOS '+str(puntaje),True,(255,255,0))
+        #win.blit(nave,(xPos+30,yPos-50))
+        win.blit(puntajes,(800,600))
+
+    else:
+        vidaEnemigo = myfont.render('ENEMI LIVE ',True,(255,255,0))
+    win.blit(vidaEnemigo,(10,10))
+
+#Funcion del tiempo de juego
+def Tiempo():
+    Time=int(pygame.time.get_ticks()/1000) #Obtenemos 
+    mensaje = myfont.render('Tiempo: '+str(Time),True,(0,255,255))
+    win.blit(mensaje,(480,10))
+
+
 while run:
     #pausa el programa por una cantidad de tiempo 
-    #pygame.time.delay(1)
+    pygame.time.delay(1)
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -177,7 +207,8 @@ while run:
     #target
         
     #nave1 =  pygame.draw.circle(win, pygame.Color('GREEN') ,(xPos+30,yPos-50),60 ) 
-    win.blit(nave,(xPos+30,yPos-50))
+    if puntos>=0:
+        win.blit(nave,(xPos+30,yPos-50))
 
 
     #Dibujado jugador1
@@ -190,23 +221,36 @@ while run:
         yb1-=velb        
         #bala = pygame.draw.circle(win, (255,255,255 ),(xb+30,yb),10)
         win.blit(bala,(xb1+30,yb1))
-        offset=(xb1-xPos,yb1-yPos)
-        colision = nave_mask.overlap(bala_mask,offset)
+        if puntos >= 0:
+            offset=(xb1-xPos,yb1-yPos)
+            colision = nave_mask.overlap(bala_mask,offset)
         #print(offset)
     
-        if colision:
-            print('La bala del jugador 1 le dio')
+            if colision:
+                print('La bala del jugador 1 le dio')
+                puntos=puntos-1
+                print(puntos)
+                acierta.play()
+
 
     if disparo2 and yb2>0:
         yb2-=velb        
         #bala = pygame.draw.circle(win, (255,255,255 ),(xb+30,yb),10)
         win.blit(bala2,(xb2+30,yb2))
-        offset2=(xb2-xPos,yb2-yPos)
-        colision2 = nave_mask.overlap(bala_mask2,offset2)
+        if puntos >= 0:
+            offset2=(xb2-xPos,yb2-yPos)
+            colision2 = nave_mask.overlap(bala_mask2,offset2)
         #print(offset2)
     
-        if colision2:
-            print('La bala del jugador 2 le dio')
+            if colision2:
+                print('La bala del jugador 2 le dio')
+                puntos=puntos-1
+                print(puntos)
+                acierta.play()
 
+    Puntaje(puntos)     
+    Tiempo()   
     pygame.display.update() 
+    pygame.display.flip()
+
 pygame.quit()
