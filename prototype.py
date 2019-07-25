@@ -84,16 +84,20 @@ nave_rect = nave.get_rect()
 myfont = pygame.font.SysFont(None,50) #Se define el font
 
 #Funcion para puntaje 
-def Puntaje(marcador):
-    if marcador<=0:
-        puntaje=0
+def Puntaje(life):
+    global cont
+    cont=0
+    if life<=0:
+        #puntaje=0
         vidaEnemigo = myfont.render('ENEMY DEAD',True,(255,255,255))
         #nave = pygame.image.load('Fondo_Negro.png').convert_alpha()
-        puntaje=puntaje+1
-        puntajes = myfont.render('PUNTOS '+str(puntaje),True,(255,255,0))
+        #puntaje=puntaje+1
+        #puntajes = myfont.render('PUNTOS '+str(puntaje),True,(255,255,0))
         #win.blit(nave,(xPos+30,yPos-50))
-        win.blit(puntajes,(800,600))
-
+        #win.blit(puntajes,(800,600))
+        cont=cont+1
+        Puntos(cont)
+        
     else:
         vidaEnemigo = myfont.render('ENEMI LIVE ',True,(255,255,0))
     win.blit(vidaEnemigo,(10,10))
@@ -103,6 +107,12 @@ def Tiempo():
     Time=int(pygame.time.get_ticks()/1000) #Obtenemos 
     mensaje = myfont.render('Tiempo: '+str(Time),True,(0,255,255))
     win.blit(mensaje,(480,10))
+
+#Funcion que controla la puntuacion
+def Puntos(punts):
+    mensaje = myfont.render('PUNTOS '+str(punts),True,(255,255,0))
+    win.blit(mensaje,(700,600))
+    puntos=50
 
 
 while run:
@@ -228,7 +238,7 @@ while run:
     
             if colision:
                 print('La bala del jugador 1 le dio')
-                puntos=puntos-1
+                puntos=puntos-50
                 print(puntos)
                 acierta.play()
 
