@@ -1,8 +1,10 @@
 import pygame
 from pygame.locals import *
 import sys
+import os
 pygame.init()
-win = pygame.display.set_mode((800,800))
+os.environ['SDL_VIDEO_CENTERED'] = '1'
+win = pygame.display.set_mode((1000,700))
 pygame.display.set_caption("First Game")
 pygame.font.init()
 
@@ -12,8 +14,8 @@ puntos=50
 
 
 #player 1
-x = 400
-y = 500
+x = 500
+y = 600
 width = 50
 height = 50
 vel = 15
@@ -51,7 +53,7 @@ def Puntaje(marcador):
         puntaje=puntaje+1
         puntajes = myfont.render('PUNTOS '+str(puntaje),True,(255,255,0))
         win.blit(nave,(xPos+30,yPos-50))
-        win.blit(puntajes,(400,700))
+        win.blit(puntajes,(800,600))
 
     else:
         vidaEnemigo = myfont.render('ENEMI LIVE ',True,(255,255,0))
