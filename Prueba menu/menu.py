@@ -11,6 +11,9 @@ screen_width=1000
 screen_height=700
 screen=pygame.display.set_mode((screen_width, screen_height))
 
+pygame.mixer.music.set_volume(0.9) 
+pygame.mixer.music.load("fondo.mp3")
+pygame.mixer.music.play(0, 0.0) 
 def formato(message, textFont, textSize, textColor):
     newFont=pygame.font.Font(textFont, textSize)
     newText=newFont.render(message, 0, textColor)
