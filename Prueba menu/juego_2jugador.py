@@ -34,6 +34,8 @@ run = True
 
 puntos=50
 
+cont = 0
+
 class Background(pygame.sprite.Sprite):
     def __init__(self, image_file, location):
         pygame.sprite.Sprite.__init__(self)  #call Sprite initializer
@@ -84,25 +86,30 @@ nave_rect = nave.get_rect()
 myfont = pygame.font.SysFont(None,50) #Se define el font
 
 #Funcion para puntaje 
-def Puntaje(marcador):
-    if marcador<=0:
-        puntaje=0
-        vidaEnemigo = myfont.render('ENEMY DEAD',True,(255,255,255))
-        #nave = pygame.image.load('Fondo_Negro.png').convert_alpha()
-        puntaje=puntaje+1
-        puntajes = myfont.render('PUNTOS '+str(puntaje),True,(255,255,0))
-        #win.blit(nave,(xPos+30,yPos-50))
-        win.blit(puntajes,(800,600))
+#def Puntaje(life):
 
-    else:
-        vidaEnemigo = myfont.render('ENEMI LIVE ',True,(255,255,0))
-    win.blit(vidaEnemigo,(10,10))
+ #   if life<=0:
+  #      vidaEnemigo = myfont.render('ENEMY DEAD',True,(255,255,255))
+        #nave = pygame.image.load('Fondo_Negro.png').convert_alpha()
+        #puntaje=puntaje+1
+        #puntajes = myfont.render('PUNTOS '+str(puntaje),True,(255,255,0))
+        #win.blit(nave,(xPos+30,yPos-50))
+        #win.blit(puntajes,(800,600)
+   # else:
+  #      vidaEnemigo = myfont.render('ENEMI LIVE ',True,(255,255,0))
+ #   win.blit(vidaEnemigo,(10,10))
 
 #Funcion del tiempo de juego
 def Tiempo():
     Time=int(pygame.time.get_ticks()/1000) #Obtenemos 
     mensaje = myfont.render('Tiempo: '+str(Time),True,(0,255,255))
     win.blit(mensaje,(480,10))
+
+#Funcion que controla la puntuacion
+def Puntos(punts):
+    mensaje = myfont.render('PUNTOS '+str(punts),True,(255,255,0))
+    win.blit(mensaje,(700,600))
+    punts=punts+1
 
 
 while run:
@@ -153,36 +160,36 @@ while run:
         if event.button == 3:
             yj2 -= vel'''
     if conectado:
-	    if event.type == pygame.JOYHATMOTION:  # Joystick
-	        if j.get_hat(0) == (1,0):
-	            xj2 += vel            
-	        if j.get_hat(0) == (-1,0):
-	            xj2 -= vel
-	        if j.get_hat(0) == (0,-1):
-	            yj2 += vel
-	        if j.get_hat(0) == (0,1):
-	            yj2 -= vel
-	    if event.type == pygame.JOYBUTTONDOWN:
-	        if event.button == 1:
-	            laser.play()
-	            disparo2=True
-	            yb2=yj2
-	            xb2=xj2-32
+        if event.type == pygame.JOYHATMOTION:  # Joystick
+            if j.get_hat(0) == (1,0):
+                xj2 += vel            
+            if j.get_hat(0) == (-1,0):
+                xj2 -= vel
+            if j.get_hat(0) == (0,-1):
+                yj2 += vel
+            if j.get_hat(0) == (0,1):
+                yj2 -= vel
+        if event.type == pygame.JOYBUTTONDOWN:
+            if event.button == 1:
+                laser.play()
+                disparo2=True
+                yb2=yj2
+                xb2=xj2-32
     else:
 
-	    if keys[pygame.K_j]:
-	        xj2 -= vel
-	    if keys[pygame.K_l]:
-	        xj2 += vel
-	    if keys[pygame.K_i]:
-	        yj2 -= vel
-	    if keys[pygame.K_k]:
-	        yj2 += vel
-	    if keys[pygame.K_p]:
-	        laser.play()
-	        disparo2=True
-	        yb2=yj2
-	        xb2=xj2-32
+        if keys[pygame.K_j]:
+            xj2 -= vel
+        if keys[pygame.K_l]:
+            xj2 += vel
+        if keys[pygame.K_i]:
+            yj2 -= vel
+        if keys[pygame.K_k]:
+            yj2 += vel
+        if keys[pygame.K_p]:
+            laser.play()
+            disparo2=True
+            yb2=yj2
+            xb2=xj2-32
 
 
     win.fill([255, 255, 255])
@@ -190,8 +197,7 @@ while run:
     #repintado del fondo
     BackGround = Background('fondo.jpg', [0,0])
     win.blit(BackGround.image, BackGround.rect)
-
-    
+   
 
     #incremento posicion del target
 
@@ -207,14 +213,25 @@ while run:
     #target
         
     #nave1 =  pygame.draw.circle(win, pygame.Color('GREEN') ,(xPos+30,yPos-50),60 ) 
+        #enemilive=True
+        #puntos=puntos+50
+
+
+        #SI EL ENEMIGO ESTA VIVO MOSTRAMOS SU ESTADO
     if puntos>=0:
         win.blit(nave,(xPos+30,yPos-50))
-
+        vidaEnemigo = myfont.render('ENEMI LIVE ',True,(255,255,0))
+    else: #DESPUES DE MATAR AL ENEMY SE LO RECREA SUMANDOLE UN PUNTO
+        vidaEnemigo = myfont.render('ANOTHER',True,(255,255,0))
+        puntos=puntos+550
+        cont=cont+1
+    win.blit(vidaEnemigo,(10,10))
 
     #Dibujado jugador1
     pygame.draw.rect(win, (255,0,0), (xj1, yj1, width, height))
     #Dibujado jugador2
     pygame.draw.rect(win, (0,0,255), (xj2, yj2, width, height))
+
 
     #disparo1
     if disparo1 and yb1>0:
@@ -228,7 +245,7 @@ while run:
     
             if colision:
                 print('La bala del jugador 1 le dio')
-                puntos=puntos-1
+                puntos=puntos-50
                 print(puntos)
                 acierta.play()
 
@@ -244,11 +261,12 @@ while run:
     
             if colision2:
                 print('La bala del jugador 2 le dio')
-                puntos=puntos-1
+                puntos=puntos-50
                 print(puntos)
                 acierta.play()
 
-    Puntaje(puntos)     
+   #Puntaje(puntos)
+    Puntos(cont)     
     Tiempo()   
     pygame.display.update() 
     pygame.display.flip()
