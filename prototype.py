@@ -34,6 +34,8 @@ run = True
 
 puntos=50
 
+cont = 0
+
 class Background(pygame.sprite.Sprite):
     def __init__(self, image_file, location):
         pygame.sprite.Sprite.__init__(self)  #call Sprite initializer
@@ -84,25 +86,18 @@ nave_rect = nave.get_rect()
 myfont = pygame.font.SysFont(None,50) #Se define el font
 
 #Funcion para puntaje 
-def Puntaje(life):
-    global cont
-    global enemilive
-    cont=0
-    if life<=0:
-        #puntaje=0
-        vidaEnemigo = myfont.render('ENEMY DEAD',True,(255,255,255))
+#def Puntaje(life):
+
+ #   if life<=0:
+  #      vidaEnemigo = myfont.render('ENEMY DEAD',True,(255,255,255))
         #nave = pygame.image.load('Fondo_Negro.png').convert_alpha()
         #puntaje=puntaje+1
         #puntajes = myfont.render('PUNTOS '+str(puntaje),True,(255,255,0))
         #win.blit(nave,(xPos+30,yPos-50))
-        #win.blit(puntajes,(800,600))
-        cont=cont+1
-        enemilive=False
-        Puntos(cont)
-        
-    else:
-        vidaEnemigo = myfont.render('ENEMI LIVE ',True,(255,255,0))
-    win.blit(vidaEnemigo,(10,10))
+        #win.blit(puntajes,(800,600)
+   # else:
+  #      vidaEnemigo = myfont.render('ENEMI LIVE ',True,(255,255,0))
+ #   win.blit(vidaEnemigo,(10,10))
 
 #Funcion del tiempo de juego
 def Tiempo():
@@ -114,7 +109,6 @@ def Tiempo():
 def Puntos(punts):
     mensaje = myfont.render('PUNTOS '+str(punts),True,(255,255,0))
     win.blit(mensaje,(700,600))
-    puntos=50
 
 
 while run:
@@ -219,20 +213,16 @@ while run:
     #target
         
     #nave1 =  pygame.draw.circle(win, pygame.Color('GREEN') ,(xPos+30,yPos-50),60 ) 
-        win.blit(nave,(xPos+30,yPos-50))
-        vid = myfont.render('ANOTHER',True,(255,255,0))
-        win.blit(vid,(10,10))
         #enemilive=True
         #puntos=puntos+50
     if puntos>=0:
         win.blit(nave,(xPos+30,yPos-50))
+        vidaEnemigo = myfont.render('ENEMI LIVE ',True,(255,255,0))
     else:
         vidaEnemigo = myfont.render('ANOTHER',True,(255,255,0))
-        win.blit(vidaEnemigo,(10,10))
         puntos=puntos+50
-        
-
-
+        cont=cont+1
+    win.blit(vidaEnemigo,(10,10))
 
     #Dibujado jugador1
     pygame.draw.rect(win, (255,0,0), (xj1, yj1, width, height))
@@ -271,7 +261,8 @@ while run:
                 print(puntos)
                 acierta.play()
 
-    Puntaje(puntos)     
+   #Puntaje(puntos)
+    Puntos(cont)     
     Tiempo()   
     pygame.display.update() 
     pygame.display.flip()
