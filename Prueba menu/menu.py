@@ -55,7 +55,8 @@ def main_menu():
                         quit()
 
                     if selected=="score":
-                        pygame.quit()
+                        pygame.quit()                        
+                        os.system("archivo.py")
                         quit()
 
         screen.fill(gray)
