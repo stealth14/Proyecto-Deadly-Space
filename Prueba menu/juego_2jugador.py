@@ -22,7 +22,7 @@ except pygame.error:
     print ("No hay un mando conectado.")
 
 win = pygame.display.set_mode((1000,700))
-pygame.display.set_caption("First Game")
+pygame.display.set_caption("DeadlySpace MASTER")
 
 #----------------------sonidos
 laser=pygame.mixer.Sound('laser.wav')
