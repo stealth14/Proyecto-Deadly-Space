@@ -13,7 +13,8 @@ screen=pygame.display.set_mode((screen_width, screen_height))
 
 pygame.mixer.music.set_volume(0.9) 
 pygame.mixer.music.load("fondo.mp3")
-pygame.mixer.music.play(0, 0.0) 
+pygame.mixer.music.play(0, 0.0)
+
 def formato(message, textFont, textSize, textColor):
     newFont=pygame.font.Font(textFont, textSize)
     newText=newFont.render(message, 0, textColor)
@@ -36,6 +37,8 @@ def main_menu():
     selected="start"
  
     while menu:
+       
+
         for event in pygame.event.get():
             if event.type==pygame.QUIT:
                 pygame.quit()
@@ -48,7 +51,7 @@ def main_menu():
                 if event.key==pygame.K_RETURN:
                     if selected=="start":
                         pygame.quit()                        
-                        os.system("python menu_jugadores.py")
+                        os.system("menu_jugadores.py")
                         quit()
 
                     if selected=="score":

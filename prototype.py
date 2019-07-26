@@ -7,7 +7,7 @@ tiempo_inicial=datetime.now()
 
 #Inicializacion Joystick
 
-# Evita que el programa se detega sij no hay un mando conectado
+# Evita que el programa se detega si no hay un mando conectado
 conectado = False
 try:
     j = pygame.joystick.Joystick(0) # Crear instancia del Joystick
