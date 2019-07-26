@@ -1,0 +1,2 @@
+Historial
+['Historial\n', '[\'Historial\\n\', \'[\\\'Historial\\\\n\\\', "[\\\'Historial\\\\\\\\n\\\', \\\'[]Enemigo aniquilado : 2 veces  \\\']Enemigo aniquilado : 5 veces  "]Enemigo aniquilado : 4 veces  \']Enemigo aniquilado : 0 veces  ']Enemigo aniquilado : 13 veces  
