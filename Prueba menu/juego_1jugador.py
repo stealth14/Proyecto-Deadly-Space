@@ -22,7 +22,7 @@ except pygame.error:
     print ("No hay un mando conectado.")
 
 win = pygame.display.set_mode((1000,700))
-pygame.display.set_caption("DeadlySpace MASTER")
+pygame.display.set_caption("First Game")
 
 #----------------------sonidos
 laser=pygame.mixer.Sound('laser.wav')
@@ -107,9 +107,11 @@ def Tiempo():
 
 #Funcion que controla la puntuacion
 def Puntos(punts):
+    archivo=open('Puntajes_1jugador.txt','w')
     mensaje = myfont.render('PUNTOS '+str(punts),True,(255,255,0))
     win.blit(mensaje,(700,600))
-    punts=punts+1
+    archivo.write('SU PUNTUACION: '+str(punts))
+    archivo.close()
 
 
 while run:
