@@ -109,6 +109,7 @@ def Tiempo():
 def Puntos(punts):
     mensaje = myfont.render('PUNTOS '+str(punts),True,(255,255,0))
     win.blit(mensaje,(700,600))
+    punts=punts+1
 
 
 while run:
@@ -196,8 +197,7 @@ while run:
     #repintado del fondo
     BackGround = Background('fondo.jpg', [0,0])
     win.blit(BackGround.image, BackGround.rect)
-
-    
+   
 
     #incremento posicion del target
 
@@ -215,12 +215,15 @@ while run:
     #nave1 =  pygame.draw.circle(win, pygame.Color('GREEN') ,(xPos+30,yPos-50),60 ) 
         #enemilive=True
         #puntos=puntos+50
+
+
+        #SI EL ENEMIGO ESTA VIVO MOSTRAMOS SU ESTADO
     if puntos>=0:
         win.blit(nave,(xPos+30,yPos-50))
         vidaEnemigo = myfont.render('ENEMI LIVE ',True,(255,255,0))
-    else:
+    else: #DESPUES DE MATAR AL ENEMY SE LO RECREA SUMANDOLE UN PUNTO
         vidaEnemigo = myfont.render('ANOTHER',True,(255,255,0))
-        puntos=puntos+50
+        puntos=puntos+550
         cont=cont+1
     win.blit(vidaEnemigo,(10,10))
 
@@ -228,6 +231,7 @@ while run:
     pygame.draw.rect(win, (255,0,0), (xj1, yj1, width, height))
     #Dibujado jugador2
     pygame.draw.rect(win, (0,0,255), (xj2, yj2, width, height))
+
 
     #disparo1
     if disparo1 and yb1>0:
